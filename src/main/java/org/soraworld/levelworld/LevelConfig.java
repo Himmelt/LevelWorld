@@ -1,11 +1,13 @@
 package org.soraworld.levelworld;
 
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
+import org.bukkit.util.NumberConversions;
 import org.soraworld.violet.config.IIConfig;
 
 import java.io.File;
@@ -28,7 +30,7 @@ public class LevelConfig extends IIConfig {
         ConfigurationSection secForce = config_yaml.getConfigurationSection("forceRespawn");
         if (secForce != null) {
             try {
-                forceRespawn = Location.deserialize(secForce.getValues(false));
+                forceRespawn = deserialize(secForce.getValues(false));
             } catch (Exception ignored) {
                 console("unknownRespawnWorld");
             }
@@ -43,7 +45,7 @@ public class LevelConfig extends IIConfig {
 
     protected void saveOptions() {
         config_yaml.set("default", defaultLevel);
-        if (forceRespawn != null) config_yaml.set("forceRespawn", forceRespawn.serialize());
+        if (forceRespawn != null) config_yaml.set("forceRespawn", serialize(forceRespawn));
         ConfigurationSection section = config_yaml.createSection("levels");
         for (Map.Entry<String, Integer> entry : levels.entrySet()) {
             section.set(entry.getKey(), entry.getValue());
@@ -100,4 +102,28 @@ public class LevelConfig extends IIConfig {
         this.defaultLevel = level;
         save();
     }
+
+    public static Location deserialize(Map<String, Object> args) {
+        World world = Bukkit.getWorld((String) args.get("world"));
+        if (world == null) {
+            throw new IllegalArgumentException("unknown world");
+        }
+
+        return new Location(world, NumberConversions.toDouble(args.get("x")), NumberConversions.toDouble(args.get("y")), NumberConversions.toDouble(args.get("z")), NumberConversions.toFloat(args.get("yaw")), NumberConversions.toFloat(args.get("pitch")));
+    }
+
+    public static Map<String, Object> serialize(Location loc) {
+        Map<String, Object> data = new HashMap<>();
+        data.put("world", loc.getWorld().getName());
+
+        data.put("x", loc.getX());
+        data.put("y", loc.getY());
+        data.put("z", loc.getZ());
+
+        data.put("yaw", loc.getYaw());
+        data.put("pitch", loc.getPitch());
+
+        return data;
+    }
+
 }

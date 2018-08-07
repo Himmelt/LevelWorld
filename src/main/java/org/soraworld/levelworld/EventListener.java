@@ -18,9 +18,10 @@ public class EventListener implements Listener {
     }
 
     @EventHandler
-    public void onPlayerChangeDimension(PlayerChangedWorldEvent event) {
+    public void onPlayerChangedWorld(PlayerChangedWorldEvent event) {
         Player player = event.getPlayer();
         World world = player.getWorld();
+        config.println("onPlayerChangedWorld|" + player + "|" + world);
         if (config.cantTeleport(player, world)) {
             Location forceRespawn = config.getForceRespawn();
             if (forceRespawn != null) {
@@ -36,6 +37,7 @@ public class EventListener implements Listener {
     public void onPlayerTeleport(PlayerTeleportEvent event) {
         Player player = event.getPlayer();
         World world = event.getTo().getWorld();
+        config.println("onPlayerTeleport|" + player + "|" + world);
         if (config.cantTeleport(player, world)) {
             event.setCancelled(true);
             config.send(player, "needLevelTo", config.getLevel(world), world.getName());
@@ -46,6 +48,7 @@ public class EventListener implements Listener {
     public void onPlayerRespawn(PlayerRespawnEvent event) {
         Player player = event.getPlayer();
         World world = event.getRespawnLocation().getWorld();
+        config.println("onPlayerRespawn|" + player + "|" + world);
         if (config.cantTeleport(player, world)) {
             Location forceRespawn = config.getForceRespawn();
             if (forceRespawn != null) {

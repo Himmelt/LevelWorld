@@ -80,6 +80,7 @@ public class LevelConfig extends IIConfig {
 
     public void setForceRespawn(Location location) {
         this.forceRespawn = location;
+        save();
     }
 
     public int getLevel(World world) {
@@ -88,6 +89,7 @@ public class LevelConfig extends IIConfig {
 
     public void setLevel(World world, int lvl) {
         levels.put(world.getName(), lvl);
+        save();
     }
 
     public int getDefaultLevel() {
@@ -96,5 +98,6 @@ public class LevelConfig extends IIConfig {
 
     public void setDefaultLevel(int level) {
         this.defaultLevel = level;
+        save();
     }
 }

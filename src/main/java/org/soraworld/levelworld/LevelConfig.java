@@ -69,11 +69,11 @@ public class LevelConfig extends IIConfig {
     }
 
     public boolean cantTeleport(Player player, World world) {
-        if (player != null && world != null) {
+        if (player != null && world != null && !player.hasPermission("lvlworld.bypass")) {
             int need = levels.getOrDefault(world.getName(), defaultLevel);
             return player.getLevel() < need;
         }
-        return true;
+        return false;
     }
 
     public Location getForceRespawn() {
@@ -116,9 +116,9 @@ public class LevelConfig extends IIConfig {
         Map<String, Object> data = new HashMap<>();
         data.put("world", loc.getWorld().getName());
 
-        data.put("x", loc.getX());
-        data.put("y", loc.getY());
-        data.put("z", loc.getZ());
+        data.put("x", loc.getBlockX());
+        data.put("y", loc.getBlockY());
+        data.put("z", loc.getBlockZ());
 
         data.put("yaw", loc.getYaw());
         data.put("pitch", loc.getPitch());

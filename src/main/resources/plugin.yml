@@ -1,0 +1,17 @@
+name: LevelWorld
+version: 1.7.10-1.0.0
+author: Himmelt
+main: org.soraworld.levelworld.LevelWorld
+depend: [Violet]
+website: https://github.com/Himmelt/LevelWorld
+description: LevelWorld Plugin.
+
+commands:
+  lvlworld:
+    description: "LevelWorld - https://github.com/Himmelt/LevelWorld"
+    usage: "/lvlworld save|reload|lang|debug|level|default|force..."
+    permission: lvlworld.admin
+    permission-message: "You have no permission <lvlworld.admin>"
+permissions:
+  lvlworld.admin:
+    default: op

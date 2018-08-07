@@ -1,0 +1,12 @@
+# English Language File
+# Please keep UTF-8 encoding
+
+chatHead: "[LevelWorld] "
+
+getLevel: "Current World need level is %d."
+setLevel: "Set Current World level to %d."
+getDefault: "Default World level is %d."
+setDefault: "Set Default World level to %d."
+setForceRespawn: "Set force respawn location at your foot."
+needLevelTo: "You need %d Level to stay in %s world"
+needLevelToRespawn: "You need %d Level to stay in %s world , and you will be forced respawn."

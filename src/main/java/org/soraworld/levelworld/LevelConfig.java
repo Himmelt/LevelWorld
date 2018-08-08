@@ -68,10 +68,11 @@ public class LevelConfig extends IIConfig {
         return "lvlworld.admin";
     }
 
-    public boolean cantTeleport(Player player, World world) {
+    public boolean stopTeleport(Player player, World world) {
         if (player != null && world != null && !player.hasPermission("lvlworld.bypass")) {
-            int need = levels.getOrDefault(world.getName(), defaultLevel);
-            return player.getLevel() < need;
+            if (forceRespawn == null || !world.equals(forceRespawn.getWorld())) {
+                return player.getLevel() < levels.getOrDefault(world.getName(), defaultLevel);
+            }
         }
         return false;
     }

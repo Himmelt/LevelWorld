@@ -1,0 +1,20 @@
+# English Language File
+# Please keep UTF-8 encoding
+
+chatHead = "[LevelWorld] "
+
+getLevel = "Current World need level is %d."
+setLevel = "Set Current World level to %d."
+getDefault = "Default World level is %d."
+setDefault = "Set Default World level to %d."
+setForceRespawn = "Set force respawn location at your foot."
+needLevelTo = "You need %d Level to stay in %s world"
+needLevelToRespawn = "You need %d Level to stay in %s world , and you will be forced respawn."
+
+unknownRespawnWorld = "&cUnknown force-respawn-location , please set it first !!!"
+
+comment {
+  defaultLevel = "default level, world not in `levels` will use this value."
+  forceRespawn = "force respawn location, to fix some non-cancelable teleport events."
+  levels = "worlds' levels configuration, world not in there will use `defaultLevel`."
+}

@@ -1,4 +1,4 @@
-package org.soraworld.levelworld;
+package org.soraworld.lvlworld;
 
 import org.bukkit.Location;
 import org.bukkit.World;
@@ -11,23 +11,23 @@ import org.bukkit.event.player.PlayerTeleportEvent;
 
 public class EventListener implements Listener {
 
-    private final LevelConfig config;
+    private final LevelManager manager;
 
-    public EventListener(LevelConfig config) {
-        this.config = config;
+    public EventListener(LevelManager manager) {
+        this.manager = manager;
     }
 
     @EventHandler
     public void onPlayerChangedWorld(PlayerChangedWorldEvent event) {
         Player player = event.getPlayer();
         World world = player.getWorld();
-        if (config.stopTeleport(player, world)) {
-            Location forceRespawn = config.getForceRespawn();
+        if (manager.stopTeleport(player, world)) {
+            Location forceRespawn = manager.getForceRespawn();
             if (forceRespawn != null) {
                 player.teleport(forceRespawn);
-                config.send(player, "needLevelToRespawn", config.getLevel(world), world.getName());
+                manager.sendKey(player, "needLevelToRespawn", manager.getLevel(world), world.getName());
             } else {
-                config.console("unknownRespawnWorld");
+                manager.consoleKey("unknownRespawnWorld");
             }
         }
     }
@@ -36,9 +36,9 @@ public class EventListener implements Listener {
     public void onPlayerTeleport(PlayerTeleportEvent event) {
         Player player = event.getPlayer();
         World world = event.getTo().getWorld();
-        if (config.stopTeleport(player, world)) {
+        if (manager.stopTeleport(player, world)) {
             event.setCancelled(true);
-            config.send(player, "needLevelTo", config.getLevel(world), world.getName());
+            manager.sendKey(player, "needLevelTo", manager.getLevel(world), world.getName());
         }
     }
 
@@ -46,13 +46,13 @@ public class EventListener implements Listener {
     public void onPlayerRespawn(PlayerRespawnEvent event) {
         Player player = event.getPlayer();
         World world = event.getRespawnLocation().getWorld();
-        if (config.stopTeleport(player, world)) {
-            Location forceRespawn = config.getForceRespawn();
+        if (manager.stopTeleport(player, world)) {
+            Location forceRespawn = manager.getForceRespawn();
             if (forceRespawn != null) {
                 player.teleport(forceRespawn);
-                config.send(player, "needLevelToRespawn", config.getLevel(world), world.getName());
+                manager.sendKey(player, "needLevelToRespawn", manager.getLevel(world), world.getName());
             } else {
-                config.console("unknownRespawnWorld");
+                manager.consoleKey("unknownRespawnWorld");
             }
         }
     }

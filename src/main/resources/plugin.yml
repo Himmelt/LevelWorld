@@ -1,7 +1,7 @@
 name: LevelWorld
-version: 1.7.10-1.0.0
+version: 1.1.0
 author: Himmelt
-main: org.soraworld.levelworld.LevelWorld
+main: org.soraworld.lvlworld.LevelWorld
 depend: [Violet]
 website: https://github.com/Himmelt/LevelWorld
 description: LevelWorld Plugin.

@@ -14,7 +14,7 @@ needLevelToRespawn = "You need %d Level to stay in %s world , and you will be fo
 unknownRespawnWorld = "&cUnknown force-respawn-location , please set it first !!!"
 
 comment {
-  defaultLevel = "default level, world not in `levels` will use this value."
+  defaultLevel = "default level, world not in 'levels' will use this value."
   forceRespawn = "force respawn location, to fix some non-cancelable teleport events."
-  levels = "worlds' levels configuration, world not in there will use `defaultLevel`."
+  levels = "worlds' levels configuration, world not in there will use 'defaultLevel'."
 }

@@ -1,19 +1,19 @@
 package org.soraworld.lvlworld;
 
-import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.soraworld.hocon.node.Setting;
 import org.soraworld.violet.api.IPlugin;
-import org.soraworld.violet.manager.VioletManager;
+import org.soraworld.violet.manager.SpigotManager;
+import org.soraworld.violet.util.ChatColor;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.nio.file.Path;
 import java.util.HashMap;
 
-public class LevelManager extends VioletManager {
+public class LevelManager extends SpigotManager {
 
     @Setting(comment = "comment.defaultLevel")
     private int defaultLevel = 0;
@@ -39,6 +39,10 @@ public class LevelManager extends VioletManager {
     @Nonnull
     public ChatColor defChatColor() {
         return ChatColor.GREEN;
+    }
+
+    public void beforeLoad() {
+        options.registerType(new LocationSerializer());
     }
 
     public void afterLoad() {

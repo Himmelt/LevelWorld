@@ -14,7 +14,7 @@ needLevelToRespawn = "你需要 %d 等级才能待在 %s 世界，将传送你�
 unknownRespawnWorld = "&c无效的重生点，请设置强制重生点 !!!!"
 
 comment {
-  defaultLevel = "默认等级需求，未在 `levels` 中配置的世界将使用该值."
-  forceRespawn = "强制重生点，以折衷处理某些不可取消的传送事件."
-  levels = "世界等级需求配置，未在此配置的世界将使用默认值 `defaultLevel`."
+  defaultLevel = "默认等级需求，未在 levels 中配置的世界将使用该值."
+  forceRespawn = "强制重生点，以折中处理某些不可取消的传送事件."
+  levels = "世界等级需求配置，未在此配置的世界将使用默认值 defaultLevel."
 }

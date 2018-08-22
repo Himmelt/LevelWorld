@@ -19,6 +19,11 @@ public class LevelWorld extends SpigotPlugin {
     }
 
     @Nonnull
+    public String getVersion() {
+        return "1.1.2";
+    }
+
+    @Nonnull
     public SpigotManager registerManager(Path path) {
         return new LevelManager(this, path);
     }

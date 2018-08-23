@@ -4,7 +4,6 @@ import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.soraworld.hocon.node.Setting;
-import org.soraworld.violet.api.IPlugin;
 import org.soraworld.violet.manager.SpigotManager;
 import org.soraworld.violet.util.ChatColor;
 
@@ -22,7 +21,7 @@ public class LevelManager extends SpigotManager {
     @Setting(comment = "comment.levels")
     private HashMap<String, Integer> levels = new HashMap<>();
 
-    public LevelManager(IPlugin plugin, Path path) {
+    public LevelManager(LevelWorld plugin, Path path) {
         super(plugin, path);
     }
 

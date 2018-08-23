@@ -1,9 +1,11 @@
 package org.soraworld.lvlworld;
 
-import org.bukkit.event.Listener;
-import org.soraworld.violet.command.SpigotCommand;
-import org.soraworld.violet.manager.SpigotManager;
-import org.soraworld.violet.plugin.SpigotPlugin;
+import org.soraworld.violet.Violet;
+import org.soraworld.violet.command.SpongeCommand;
+import org.soraworld.violet.manager.SpongeManager;
+import org.soraworld.violet.plugin.SpongePlugin;
+import org.spongepowered.api.plugin.Dependency;
+import org.spongepowered.api.plugin.Plugin;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -11,7 +13,19 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 
-public class LevelWorld extends SpigotPlugin {
+@Plugin(
+        id = "lvlworld",
+        name = "LevelWorld",
+        version = "1.1.2",
+        description = "Level World Plugin.",
+        url = "https://github.com/Himmelt/LevelWorld",
+        authors = {"Himmelt"},
+        dependencies = {@Dependency(
+                id = Violet.SPONGE_ID,
+                version = Violet.PLUGIN_VERSION)
+        }
+)
+public class LevelWorld extends SpongePlugin {
 
     @Nonnull
     public String getId() {
@@ -20,22 +34,22 @@ public class LevelWorld extends SpigotPlugin {
 
     @Nonnull
     public String getVersion() {
-        return getDescription().getVersion();
+        return "1.1.2";
     }
 
     @Nonnull
-    public SpigotManager registerManager(Path path) {
+    public SpongeManager registerManager(Path path) {
         return new LevelManager(this, path);
     }
 
     @Nonnull
-    public SpigotCommand registerCommand() {
+    public SpongeCommand registerCommand() {
         return new LevelCommand("lvlworld.admin", false, (LevelManager) this.manager, "lvlworld");
     }
 
     @Nullable
-    public List<Listener> registerListeners() {
-        ArrayList<Listener> listeners = new ArrayList<>();
+    public List<Object> registerListeners() {
+        ArrayList<Object> listeners = new ArrayList<>();
         listeners.add(new EventListener((LevelManager) manager));
         return listeners;
     }

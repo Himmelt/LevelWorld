@@ -1,14 +1,14 @@
 package org.soraworld.lvlworld;
 
-import org.bukkit.entity.Player;
 import org.soraworld.violet.Violet;
 import org.soraworld.violet.command.CommandArgs;
-import org.soraworld.violet.command.SpigotCommand;
+import org.soraworld.violet.command.SpongeCommand;
+import org.spongepowered.api.entity.living.player.Player;
 
-public class LevelCommand extends SpigotCommand.CommandViolet {
+public class LevelCommand extends SpongeCommand.CommandViolet {
     public LevelCommand(String perm, boolean onlyPlayer, LevelManager level, String... aliases) {
         super(perm, onlyPlayer, level, aliases);
-        addSub(new SpigotCommand(perm, true, level, "level") {
+        addSub(new SpongeCommand(perm, true, level, "level") {
             public void execute(Player player, CommandArgs args) {
                 if (args.notEmpty()) {
                     try {
@@ -21,7 +21,7 @@ public class LevelCommand extends SpigotCommand.CommandViolet {
                 } else manager.sendKey(player, "getLevel", level.getLevel(player.getWorld()));
             }
         });
-        addSub(new SpigotCommand(perm, true, level, "default") {
+        addSub(new SpongeCommand(perm, true, level, "default") {
             public void execute(Player player, CommandArgs args) {
                 if (args.notEmpty()) {
                     try {
@@ -34,7 +34,7 @@ public class LevelCommand extends SpigotCommand.CommandViolet {
                 } else manager.sendKey(player, "getDefault", level.getDefaultLevel());
             }
         });
-        addSub(new SpigotCommand(perm, true, level, "force") {
+        addSub(new SpongeCommand(perm, true, level, "force") {
             public void execute(Player player, CommandArgs args) {
                 level.setForceRespawn(player.getLocation());
                 manager.sendKey(player, "setForceRespawn");

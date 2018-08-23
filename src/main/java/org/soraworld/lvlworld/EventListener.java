@@ -1,15 +1,14 @@
 package org.soraworld.lvlworld;
 
-import org.bukkit.Location;
-import org.bukkit.World;
-import org.bukkit.entity.Player;
-import org.bukkit.event.EventHandler;
-import org.bukkit.event.Listener;
-import org.bukkit.event.player.PlayerChangedWorldEvent;
-import org.bukkit.event.player.PlayerRespawnEvent;
-import org.bukkit.event.player.PlayerTeleportEvent;
+import org.spongepowered.api.entity.living.player.Player;
+import org.spongepowered.api.event.Listener;
+import org.spongepowered.api.event.entity.MoveEntityEvent;
+import org.spongepowered.api.event.entity.living.humanoid.player.RespawnPlayerEvent;
+import org.spongepowered.api.event.filter.cause.First;
+import org.spongepowered.api.world.Location;
+import org.spongepowered.api.world.World;
 
-public class EventListener implements Listener {
+public class EventListener {
 
     private final LevelManager manager;
 
@@ -17,39 +16,22 @@ public class EventListener implements Listener {
         this.manager = manager;
     }
 
-    @EventHandler
-    public void onPlayerChangedWorld(PlayerChangedWorldEvent event) {
-        Player player = event.getPlayer();
-        World world = player.getWorld();
-        if (manager.stopTeleport(player, world)) {
-            Location forceRespawn = manager.getForceRespawn();
-            if (forceRespawn != null) {
-                player.teleport(forceRespawn);
-                manager.sendKey(player, "needLevelToRespawn", manager.getLevel(world), world.getName());
-            } else {
-                manager.consoleKey("unknownRespawnWorld");
-            }
-        }
-    }
-
-    @EventHandler
-    public void onPlayerTeleport(PlayerTeleportEvent event) {
-        Player player = event.getPlayer();
-        World world = event.getTo().getWorld();
+    @Listener
+    public void onPlayerTeleport(MoveEntityEvent.Teleport event, @First Player player) {
+        World world = event.getToTransform().getExtent();
         if (manager.stopTeleport(player, world)) {
             event.setCancelled(true);
             manager.sendKey(player, "needLevelTo", manager.getLevel(world), world.getName());
         }
     }
 
-    @EventHandler
-    public void onPlayerRespawn(PlayerRespawnEvent event) {
-        Player player = event.getPlayer();
-        World world = event.getRespawnLocation().getWorld();
+    @Listener
+    public void onPlayerRespawn(RespawnPlayerEvent event, @First Player player) {
+        World world = event.getToTransform().getExtent();
         if (manager.stopTeleport(player, world)) {
-            Location forceRespawn = manager.getForceRespawn();
+            Location<World> forceRespawn = manager.getForceRespawn();
             if (forceRespawn != null) {
-                player.teleport(forceRespawn);
+                player.transferToWorld(forceRespawn.getExtent(), forceRespawn.getPosition());
                 manager.sendKey(player, "needLevelToRespawn", manager.getLevel(world), world.getName());
             } else {
                 manager.consoleKey("unknownRespawnWorld");

@@ -8,7 +8,6 @@ import org.soraworld.violet.manager.SpigotManager;
 import org.soraworld.violet.util.ChatColor;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import java.nio.file.Path;
 import java.util.HashMap;
 
@@ -23,16 +22,6 @@ public class LevelManager extends SpigotManager {
 
     public LevelManager(LevelWorld plugin, Path path) {
         super(plugin, path);
-    }
-
-    @Nonnull
-    public String defChatHead() {
-        return "[LevelWorld] ";
-    }
-
-    @Nullable
-    public String defAdminPerm() {
-        return "lvlworld.admin";
     }
 
     @Nonnull

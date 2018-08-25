@@ -1,5 +1,6 @@
 package org.soraworld.lvlworld;
 
+import org.spongepowered.api.entity.Transform;
 import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.event.Listener;
 import org.spongepowered.api.event.entity.MoveEntityEvent;
@@ -29,9 +30,9 @@ public class EventListener {
     public void onPlayerRespawn(RespawnPlayerEvent event, @First Player player) {
         World world = event.getToTransform().getExtent();
         if (manager.stopTeleport(player, world)) {
-            Location<World> forceRespawn = manager.getForceRespawn();
+            Location<World> forceRespawn = manager.getForceRespawn().toLocation();
             if (forceRespawn != null) {
-                player.transferToWorld(forceRespawn.getExtent(), forceRespawn.getPosition());
+                event.setToTransform(new Transform<>(forceRespawn));
                 manager.sendKey(player, "needLevelToRespawn", manager.getLevel(world), world.getName());
             } else {
                 manager.consoleKey("unknownRespawnWorld");

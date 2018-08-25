@@ -5,7 +5,6 @@ import org.soraworld.violet.manager.SpongeManager;
 import org.soraworld.violet.util.ChatColor;
 import org.spongepowered.api.data.key.Keys;
 import org.spongepowered.api.entity.living.player.Player;
-import org.spongepowered.api.world.Location;
 import org.spongepowered.api.world.World;
 
 import javax.annotation.Nonnull;
@@ -17,7 +16,7 @@ public class LevelManager extends SpongeManager {
     @Setting(comment = "comment.defaultLevel")
     private int defaultLevel = 0;
     @Setting(comment = "comment.forceRespawn")
-    private Location<World> forceRespawn = null;
+    private Location forceRespawn = null;
     @Setting(comment = "comment.levels")
     private HashMap<String, Integer> levels = new HashMap<>();
 
@@ -31,7 +30,7 @@ public class LevelManager extends SpongeManager {
     }
 
     public void beforeLoad() {
-        options.registerType(new LocationSerializer());
+        options.registerType(new Location.Serializer());
     }
 
     public void afterLoad() {
@@ -42,18 +41,18 @@ public class LevelManager extends SpongeManager {
 
     public boolean stopTeleport(Player player, World world) {
         if (player != null && world != null && !player.hasPermission("lvlworld.bypass")) {
-            if (forceRespawn == null || !world.equals(forceRespawn.getExtent())) {
+            if (forceRespawn == null || !world.equals(forceRespawn.getWorld())) {
                 return player.get(Keys.EXPERIENCE_LEVEL).orElse(0) < levels.getOrDefault(world.getName(), defaultLevel);
             }
         }
         return false;
     }
 
-    public Location<World> getForceRespawn() {
+    public Location getForceRespawn() {
         return forceRespawn;
     }
 
-    public void setForceRespawn(Location<World> location) {
+    public void setForceRespawn(Location location) {
         forceRespawn = location;
         save();
     }

@@ -36,7 +36,7 @@ public class LevelCommand extends SpongeCommand.CommandViolet {
         });
         addSub(new SpongeCommand(perm, true, level, "force") {
             public void execute(Player player, CommandArgs args) {
-                level.setForceRespawn(player.getLocation());
+                level.setForceRespawn(new Location(player.getLocation()));
                 manager.sendKey(player, "setForceRespawn");
             }
         });

@@ -14,13 +14,8 @@ import java.util.List;
 public class LevelWorld extends SpigotPlugin {
 
     @Nonnull
-    public String getId() {
+    public String assetsId() {
         return "lvlworld";
-    }
-
-    @Nonnull
-    public String getVersion() {
-        return getDescription().getVersion();
     }
 
     @Nonnull

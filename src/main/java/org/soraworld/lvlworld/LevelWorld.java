@@ -21,20 +21,15 @@ import java.util.List;
         url = "https://github.com/Himmelt/LevelWorld",
         authors = {"Himmelt"},
         dependencies = {@Dependency(
-                id = Violet.SPONGE_ID,
+                id = Violet.PLUGIN_ID,
                 version = Violet.PLUGIN_VERSION)
         }
 )
 public class LevelWorld extends SpongePlugin {
 
     @Nonnull
-    public String getId() {
+    public String assetsId() {
         return "lvlworld";
-    }
-
-    @Nonnull
-    public String getVersion() {
-        return "1.1.2";
     }
 
     @Nonnull

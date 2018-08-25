@@ -9,7 +9,6 @@ import org.spongepowered.api.world.Location;
 import org.spongepowered.api.world.World;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import java.nio.file.Path;
 import java.util.HashMap;
 
@@ -24,16 +23,6 @@ public class LevelManager extends SpongeManager {
 
     public LevelManager(LevelWorld plugin, Path path) {
         super(plugin, path);
-    }
-
-    @Nonnull
-    public String defChatHead() {
-        return "[LevelWorld] ";
-    }
-
-    @Nullable
-    public String defAdminPerm() {
-        return "lvlworld.admin";
     }
 
     @Nonnull

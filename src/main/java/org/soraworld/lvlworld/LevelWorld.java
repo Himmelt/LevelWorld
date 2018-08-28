@@ -1,6 +1,7 @@
 package org.soraworld.lvlworld;
 
 import org.soraworld.violet.Violet;
+import org.soraworld.violet.command.SpongeBaseSubs;
 import org.soraworld.violet.command.SpongeCommand;
 import org.soraworld.violet.manager.SpongeManager;
 import org.soraworld.violet.plugin.SpongePlugin;
@@ -16,8 +17,8 @@ import java.util.List;
 @Plugin(
         id = "lvlworld",
         name = "LevelWorld",
-        version = "1.1.2",
-        description = "Level World Plugin.",
+        version = "1.1.3",
+        description = "LevelWorld Plugin.",
         url = "https://github.com/Himmelt/LevelWorld",
         authors = {"Himmelt"},
         dependencies = {@Dependency(
@@ -37,9 +38,15 @@ public class LevelWorld extends SpongePlugin {
         return new LevelManager(this, path);
     }
 
-    @Nonnull
-    public SpongeCommand registerCommand() {
-        return new LevelCommand("lvlworld.admin", false, (LevelManager) this.manager, "lvlworld");
+    public void registerCommands() {
+        SpongeCommand command = new SpongeCommand(getId(), manager.defAdminPerm(), false, manager);
+        command.extractSub(SpongeBaseSubs.class, "lang");
+        command.extractSub(SpongeBaseSubs.class, "debug");
+        command.extractSub(SpongeBaseSubs.class, "save");
+        command.extractSub(SpongeBaseSubs.class, "reload");
+        command.extractSub(LevelCommand.class);
+        command.setUsage("/lvlworld level|default|force");
+        register(this, command);
     }
 
     @Nullable

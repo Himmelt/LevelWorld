@@ -35,10 +35,11 @@ public class EventListener implements Listener {
     @EventHandler
     public void onPlayerTeleport(PlayerTeleportEvent event) {
         Player player = event.getPlayer();
-        World world = event.getTo().getWorld();
-        if (manager.stopTeleport(player, world)) {
+        World to = event.getTo().getWorld();
+        World from = event.getFrom().getWorld();
+        if (from != to && manager.stopTeleport(player, to)) {
             event.setCancelled(true);
-            manager.sendKey(player, "needLevelTo", manager.getLevel(world), world.getName());
+            manager.sendKey(player, "needLevelTo", manager.getLevel(to), to.getName());
         }
     }
 
@@ -49,8 +50,8 @@ public class EventListener implements Listener {
         if (manager.stopTeleport(player, world)) {
             Location forceRespawn = manager.getForceRespawn();
             if (forceRespawn != null) {
-                player.teleport(forceRespawn);
                 manager.sendKey(player, "needLevelToRespawn", manager.getLevel(world), world.getName());
+                event.setRespawnLocation(forceRespawn);
             } else {
                 manager.consoleKey("unknownRespawnWorld");
             }

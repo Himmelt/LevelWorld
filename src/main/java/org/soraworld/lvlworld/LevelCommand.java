@@ -1,48 +1,53 @@
 package org.soraworld.lvlworld;
 
+import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import org.soraworld.violet.Violet;
-import org.soraworld.violet.command.CommandArgs;
-import org.soraworld.violet.command.SpigotCommand;
+import org.soraworld.violet.command.Paths;
+import org.soraworld.violet.command.Sub;
+import org.soraworld.violet.manager.SpigotManager;
 
-public class LevelCommand extends SpigotCommand.CommandViolet {
-    public LevelCommand(String perm, boolean onlyPlayer, LevelManager level, String... aliases) {
-        super(perm, onlyPlayer, level, aliases);
-        addSub(new SpigotCommand(perm, true, level, "level") {
-            public void execute(Player player, CommandArgs args) {
-                if (args.notEmpty()) {
-                    try {
-                        int lvl = Integer.valueOf(args.get(0));
-                        level.setLevel(player.getWorld(), lvl < 0 ? 0 : lvl);
-                        manager.sendKey(player, "setLevel", level.getLevel(player.getWorld()));
-                    } catch (Throwable ignored) {
-                        manager.sendKey(player, Violet.KEY_INVALID_INT);
-                    }
-                } else manager.sendKey(player, "getLevel", level.getLevel(player.getWorld()));
-            }
-        });
-        addSub(new SpigotCommand(perm, true, level, "default") {
-            public void execute(Player player, CommandArgs args) {
-                if (args.notEmpty()) {
-                    try {
-                        int lvl = Integer.valueOf(args.get(0));
-                        level.setDefaultLevel(lvl < 0 ? 0 : lvl);
-                        manager.sendKey(player, "setDefault", level.getDefaultLevel());
-                    } catch (Throwable ignored) {
-                        manager.sendKey(player, Violet.KEY_INVALID_INT);
-                    }
-                } else manager.sendKey(player, "getDefault", level.getDefaultLevel());
-            }
-        });
-        addSub(new SpigotCommand(perm, true, level, "force") {
-            public void execute(Player player, CommandArgs args) {
-                level.setForceRespawn(player.getLocation());
-                manager.sendKey(player, "setForceRespawn");
-            }
-        });
+public class LevelCommand {
+    @Sub(perm = "admin", onlyPlayer = true)
+    public static void level(SpigotManager manager, CommandSender source, Paths args) {
+        if (manager instanceof LevelManager && source instanceof Player) {
+            LevelManager level = (LevelManager) manager;
+            Player player = (Player) source;
+            if (args.notEmpty()) {
+                try {
+                    int lvl = Integer.valueOf(args.get(0));
+                    level.setLevel(player.getWorld(), lvl < 0 ? 0 : lvl);
+                    level.sendKey(player, "setLevel", level.getLevel(player.getWorld()));
+                } catch (Throwable ignored) {
+                    level.sendKey(player, "invalidInt");
+                }
+            } else level.sendKey(player, "getLevel", level.getLevel(player.getWorld()));
+        }
     }
 
-    public String getUsage() {
-        return "/lvlworld level|default|force";
+    @Sub(paths = {"default"}, perm = "admin", onlyPlayer = true)
+    public static void fun_default(SpigotManager manager, CommandSender source, Paths args) {
+        if (manager instanceof LevelManager && source instanceof Player) {
+            LevelManager level = (LevelManager) manager;
+            Player player = (Player) source;
+            if (args.notEmpty()) {
+                try {
+                    int lvl = Integer.valueOf(args.get(0));
+                    level.setDefaultLevel(lvl < 0 ? 0 : lvl);
+                    level.sendKey(player, "setDefault", level.getDefaultLevel());
+                } catch (Throwable ignored) {
+                    level.sendKey(player, "invalidInt");
+                }
+            } else level.sendKey(player, "getDefault", level.getDefaultLevel());
+        }
+    }
+
+    @Sub(perm = "admin", onlyPlayer = true)
+    public static void force(SpigotManager manager, CommandSender source, Paths args) {
+        if (manager instanceof LevelManager && source instanceof Player) {
+            LevelManager level = (LevelManager) manager;
+            Player player = (Player) source;
+            level.setForceRespawn(player.getLocation());
+            manager.sendKey(player, "setForceRespawn");
+        }
     }
 }

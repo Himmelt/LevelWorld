@@ -1,6 +1,7 @@
 package org.soraworld.lvlworld;
 
 import org.bukkit.event.Listener;
+import org.soraworld.violet.command.SpigotBaseSubs;
 import org.soraworld.violet.command.SpigotCommand;
 import org.soraworld.violet.manager.SpigotManager;
 import org.soraworld.violet.plugin.SpigotPlugin;
@@ -28,9 +29,15 @@ public class LevelWorld extends SpigotPlugin {
         return new LevelManager(this, path);
     }
 
-    @Nonnull
-    public SpigotCommand registerCommand() {
-        return new LevelCommand("lvlworld.admin", false, (LevelManager) this.manager, "lvlworld");
+    public void registerCommands() {
+        SpigotCommand command = new SpigotCommand(this.getId(), this.manager.defAdminPerm(), false, this.manager);
+        command.extractSub(SpigotBaseSubs.class, "lang");
+        command.extractSub(SpigotBaseSubs.class, "debug");
+        command.extractSub(SpigotBaseSubs.class, "save");
+        command.extractSub(SpigotBaseSubs.class, "reload");
+        command.extractSub(LevelCommand.class);
+        command.setUsage("/lvlworld level|default|force");
+        register(this, command);
     }
 
     @Nullable

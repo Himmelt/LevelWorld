@@ -7,17 +7,17 @@ archivesBaseName = "LevelWorld-spigot"
 sourceCompatibility = targetCompatibility = 1.8
 
 repositories {
+    maven { url = 'https://maven.aliyun.com/repository/public/' }
     jcenter()
-    maven {
-        name = 'spigot'
-        url = 'https://hub.spigotmc.org/nexus/content/groups/public/'
-    }
+    maven { url = 'https://oss.jfrog.org/artifactory/oss-snapshot-local/' }
+    maven { url = 'https://hub.spigotmc.org/nexus/content/repositories/snapshots/' }
+    maven { url = 'https://hub.spigotmc.org/nexus/content/groups/public/' }
 }
 
 dependencies {
     compile 'org.spigotmc:spigot-api:1.12.2-R0.1-SNAPSHOT'
-    //compile 'org.soraworld:violet-spigot:2.2.7'
-    compile 'com.google.code.findbugs:jsr305:3.0.2'
-    compile files('lib/SpigotViolet-2.3.0-hocon.jar')
-    testCompile 'junit:junit:4.12'
+    compile 'org.soraworld:violet-spigot:2.4.2-SNAPSHOT'
+    //compile 'com.google.code.findbugs:jsr305:3.0.2'
+    //compile files('lib/SpigotViolet-2.3.0-hocon.jar')
+    //testCompile 'junit:junit:4.12'
 }

@@ -9,4 +9,4 @@ permissions:
   lvlworld.admin:
     default: op
   lvlworld.bypass:
-    default: op
+    default: false

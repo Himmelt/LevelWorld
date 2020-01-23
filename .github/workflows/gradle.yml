@@ -15,5 +15,7 @@ jobs:
         java-version: 1.8
     - name: Chmod
       run: chmod +x ./gradlew
+    - name: Clean with Gradle
+      run: ./gradlew clean
     - name: Build with Gradle
       run: ./gradlew build

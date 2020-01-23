@@ -12,11 +12,11 @@ import org.bukkit.event.player.PlayerTeleportEvent;
 /**
  * @author Himmelt
  */
-public class EventListener implements Listener {
+public class LevelListener implements Listener {
 
     private final LevelManager manager;
 
-    public EventListener(LevelManager manager) {
+    public LevelListener(LevelManager manager) {
         this.manager = manager;
     }
 

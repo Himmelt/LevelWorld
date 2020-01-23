@@ -45,7 +45,7 @@ public final class LevelWorld extends SpigotPlugin {
     @Override
     public List<Listener> registerListeners() {
         ArrayList<Listener> listeners = new ArrayList<>();
-        listeners.add(new EventListener((LevelManager) manager));
+        listeners.add(new LevelListener((LevelManager) manager));
         return listeners;
     }
 }

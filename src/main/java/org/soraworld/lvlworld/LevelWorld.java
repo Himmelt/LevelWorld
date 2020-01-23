@@ -6,29 +6,31 @@ import org.soraworld.violet.command.SpigotCommand;
 import org.soraworld.violet.manager.SpigotManager;
 import org.soraworld.violet.plugin.SpigotPlugin;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 
-public class LevelWorld extends SpigotPlugin {
+/**
+ * @author Himmelt
+ */
+public final class LevelWorld extends SpigotPlugin {
 
-    @Nonnull
+    @Override
     public String assetsId() {
         return "lvlworld";
     }
 
-    @Nonnull
+    @Override
     public String getId() {
         return "lvlworld";
     }
 
-    @Nonnull
+    @Override
     public SpigotManager registerManager(Path path) {
         return new LevelManager(this, path);
     }
 
+    @Override
     public void registerCommands() {
         SpigotCommand command = new SpigotCommand(this.getId(), this.manager.defAdminPerm(), false, this.manager);
         command.extractSub(SpigotBaseSubs.class, "lang");
@@ -40,7 +42,7 @@ public class LevelWorld extends SpigotPlugin {
         register(this, command);
     }
 
-    @Nullable
+    @Override
     public List<Listener> registerListeners() {
         ArrayList<Listener> listeners = new ArrayList<>();
         listeners.add(new EventListener((LevelManager) manager));

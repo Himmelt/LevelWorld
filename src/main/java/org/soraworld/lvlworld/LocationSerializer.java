@@ -9,16 +9,19 @@ import org.soraworld.hocon.node.NodeMap;
 import org.soraworld.hocon.node.Options;
 import org.soraworld.hocon.serializer.TypeSerializer;
 
-import javax.annotation.Nonnull;
 import java.lang.reflect.Type;
 import java.util.HashMap;
 
 import static org.bukkit.util.NumberConversions.toDouble;
 import static org.bukkit.util.NumberConversions.toFloat;
 
+/**
+ * @author Himmelt
+ */
 public class LocationSerializer implements TypeSerializer<Location> {
 
-    public Location deserialize(@Nonnull Type type, @Nonnull Node node) {
+    @Override
+    public Location deserialize(Type type, Node node) {
         if (node instanceof NodeMap) {
             HashMap<String, String> map = ((NodeMap) node).asStringMap();
             String name = map.get("world");
@@ -32,7 +35,8 @@ public class LocationSerializer implements TypeSerializer<Location> {
         return null;
     }
 
-    public Node serialize(@Nonnull Type type, Location loc, @Nonnull Options options) {
+    @Override
+    public Node serialize(Type type, Location loc, Options options) {
         if (loc != null) {
             NodeMap map = new NodeMap(options);
             World world = loc.getWorld();
@@ -43,10 +47,12 @@ public class LocationSerializer implements TypeSerializer<Location> {
             map.set("yaw", loc.getYaw());
             map.set("pitch", loc.getPitch());
             return map;
-        } else return new NodeBase(options, null, false);
+        } else {
+            return new NodeBase(options, null, false);
+        }
     }
 
-    @Nonnull
+    @Override
     public Type getRegType() {
         return Location.class;
     }

@@ -7,10 +7,12 @@ import org.soraworld.hocon.node.Setting;
 import org.soraworld.violet.manager.SpigotManager;
 import org.soraworld.violet.util.ChatColor;
 
-import javax.annotation.Nonnull;
 import java.nio.file.Path;
 import java.util.HashMap;
 
+/**
+ * @author Himmelt
+ */
 public class LevelManager extends SpigotManager {
 
     @Setting(comment = "comment.defaultLevel")
@@ -24,15 +26,17 @@ public class LevelManager extends SpigotManager {
         super(plugin, path);
     }
 
-    @Nonnull
+    @Override
     public ChatColor defChatColor() {
         return ChatColor.GREEN;
     }
 
+    @Override
     public void beforeLoad() {
         options.registerType(new LocationSerializer());
     }
 
+    @Override
     public void afterLoad() {
         if (forceRespawn == null) {
             consoleKey("unknownRespawnWorld");

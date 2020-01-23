@@ -9,6 +9,9 @@ import org.bukkit.event.player.PlayerChangedWorldEvent;
 import org.bukkit.event.player.PlayerRespawnEvent;
 import org.bukkit.event.player.PlayerTeleportEvent;
 
+/**
+ * @author Himmelt
+ */
 public class EventListener implements Listener {
 
     private final LevelManager manager;
